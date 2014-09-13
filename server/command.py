@@ -7,8 +7,12 @@ def repolist():
 repolist();
 
 def setup( dockerfile, reponame ):
+  git_init = 'ssh root@10.0.2.15 git init --bare --shared /gitserver/%s.git' % reponame
+  gitrepo = 'ssh root@10.0.2.15 mkdir -p /gitserver/%s.git' % reponame
+  os.system(gitrepo)
+  os.system(git_init) 
  # cmd = 'docker build -t %s /DockerRepo/%s' % ( reponame, dockerfile )
-  cmd = 'docker build /DockerRepo/%s' % ( dockerfile )
+##  cmd = 'docker build /DockerRepo/%s' % ( dockerfile )
  # grep_image_id = 'docker images | grep %s | awk \'{print $3}\'' % reponame 
  # os.system(cmd)
  # image_id = os.system(grep_image_id)
@@ -18,6 +22,9 @@ def setup( dockerfile, reponame ):
   return;
 
 setup( "Nodejs", "nodejsrepo3" );
+
+#[status,cmdout] = system('who');
+#status
 
 def inst_list():
  cmd = 'docker ps'
